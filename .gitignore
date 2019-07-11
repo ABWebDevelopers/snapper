@@ -3,3 +3,7 @@ config.yaml
 
 # Dependencies
 vendor/*
+composer.lock
+
+# Editor files
+.vscode/*
