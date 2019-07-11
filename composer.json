@@ -1,0 +1,23 @@
+{
+    "name": "abwebdevelopers/snapper",
+    "description": "Database snapshot and backup utility, built in PHP",
+    "authors": [
+        {
+            "name": "Ben Thomson",
+            "email": "ben@abweb.com.au"
+        }
+    ],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "symfony/yaml": "^4.3",
+        "league/climate": "^3.5",
+        "aws/aws-sdk-php": "^3.104",
+        "dflydev/dot-access-data": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ABWebDevelopers\\Snapper\\": "lib"
+        }
+    }
+}

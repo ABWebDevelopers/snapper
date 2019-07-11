@@ -1,0 +1,230 @@
+# SAMPLE CONFIGURATION
+# Please use this as a base for configuring your Snapper instance.
+# ----------------------------------------------------------------
+
+# -- Database selection
+# You have two options available for database selection for snapshots. You can choose to include all databases, and
+# exclude specific databases, or you can manually include a list of specific databases.
+
+databases:
+
+  # (bool) Include all databases. If set to true, the `include` option is ignored, otherwise the `exclude` option is
+  # ignored.
+  includeAll: true
+
+  # (array) If `includeAll` is false, you can specify a list of databases you wish to include in the snapshots.
+  # include:
+  #   - database_1
+  #   - database_2
+
+  exclude:
+    - information_schema
+    - logs
+    - mysql
+    - performance_schema
+
+# -- Connection configuration
+# Specifies the connection settings to the MySQL database server. Note that details made in here are in plaintext, so
+# anyone with access to this file will be able to see it. You can also choose to use environment variables for
+# connection configuration.
+
+connection:
+
+  # (string) The address to the database server.
+  # Environment variable: SNAPPER_CONN_SERVER
+  server: ''
+
+  # (string) The username to use when connecting to the server
+  # Environment variable: SNAPPER_CONN_USER
+  username: ''
+
+  # (string) The password to use when connecting to the server
+  # Environment variable: SNAPPER_CONN_PASS
+  password: ''
+
+  # (int) The port number to use when connecting to the server
+  # Environment variable: SNAPPER_CONN_PORT
+  port: 3306
+
+
+# -- Snapshot strategory
+# Specifies the strategies with which you would like to take database snapshots. You can use hourly, daily, weekly and
+# monthly strategies. Each one has their own specific settings.
+
+strategy:
+
+  # Hourly strategy
+  hourly:
+
+    # (int) Define the minute in which the snapshot will be taken - value must be between 0 and 59. Defaults to 0 (:00)
+    #snapshotMinute: 0
+
+    # (int) Define the number of hourly backups to keep. For example, if you want to keep 7 hourly backups, this would
+    # be 7. If you want to keep 7 days of hourly backups, this would be 168. Defaults to 7.
+    #backupsToKeep: 24
+
+    # (string) The folder name to store the hourly snapshots in. Defaults to "hourly".
+    #folderName: hourly
+
+  # Daily strategy
+  daily:
+
+    # (int) Define the hour in which the snapshot will be taken - value must be between 0 and 23. Defaults to 0 (12am)
+    #snapshotHour: 0
+
+    # (int) Define the minute in which the snapshot will be taken - value must be between 0 and 59. Defaults to 0 (:00)
+    #snapshotMinute: 0
+
+    # (int) Define the number of daily backups to keep. For example, if you want to keep 7 daily backups, this would
+    # be 7.
+    #backupsToKeep: 7
+
+    # (string) The folder name to store the daily snapshots in. Defaults to "daily".
+    #folderName: daily
+
+  # Weekly strategy
+  weekly:
+
+    # (int) Define the day in which the snapshot will be taken. This value should match the ISO 8601 day of week value:
+    # 1 = Monday
+    # 2 = Tuesday
+    # 3 = Wednesday
+    # 4 = Thursday
+    # 5 = Friday
+    # 6 = Saturday
+    # 7 = Sunday
+    # Defaults to 3 (Wednesday)
+    #snapshotDay: 3
+
+    # (int) Define the hour in which the snapshot will be taken - value must be between 0 and 23. Defaults to 0 (12am)
+    #snapshotHour: 0
+
+    # (int) Define the minute in which the snapshot will be taken - value must be between 0 and 59. Defaults to 0 (:00)
+    #snapshotMinute: 0
+
+    # (int) Define the number of weekly backups to keep. For example, if you want to keep 7 weeks of backups, this would
+    # be 7.
+    #backupsToKeep: 52
+
+    # (string) The folder name to store the weekly snapshots in. Defaults to "weekly".
+    #folderName: weekly
+
+  # Monthly strategy
+  #monthly:
+
+    # (int) Define the day of the month in which the snapshot will be taken. If you use a number which is not present
+    # in all months (ie. 29, 30, 31), the closest available date within the month will be used. Defaults to 1 (1st)
+    #snapshotDay: 1
+
+    # (int) Define the hour in which the snapshot will be taken - value must be between 0 and 23. Defaults to 0 (12am)
+    #snapshotHour: 0
+
+    # (int) Define the minute in which the snapshot will be taken - value must be between 0 and 59. Defaults to 0 (:00)
+    #snapshotMinute: 0
+
+    # (int) Define the number of monthly backups to keep. For example, if you want to keep 7 weeks of backups, this would
+    # be 7.
+    #backupsToKeep: 12
+
+    # (string) The folder name to store the monthly snapshots in. Defaults to "monthly".
+    #folderName: monthly
+
+# -- Storage configuration
+# Specifies the configuration of the storage mechanism(s). Each type of storage has its own configuration. If you do not
+# wish to use a certain storage mechanism, either leave it out of your config, or comment it out.
+
+storage:
+
+  # Local storage
+  #local:
+
+    # (string) Specifies the directory that the snapshots will be stored. If the directory does not exist, Snapper will
+    # attempt to create it.
+    #directory:
+
+  # Amazon S3 storage
+  #s3:
+
+    # (string) The name of the Amazon S3 bucket to store the snapshots in. This must be created before using the script.
+    #bucket:
+
+    # (string) The region that the Amazon S3 is stored. This must match one of the "Region" codes available from here:
+    # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html
+    #region:
+
+    # (string) The access key to use to connect to the Amazon S3 bucket.
+    # Environment variable: AWS_ACCESS_KEY_ID
+    #key:
+
+    # (string) The secret key to use to connect to the Amazon S3 bucket.
+    # Environment variable: AWS_SECRET_ACCESS_KEY
+    #secret:
+
+  # FTP storage. If used, this will require the PHP "ftp" extension installed.
+  #ftp:
+
+    # (string) The name of the remote directory to store the snapshots in. If it is not created, Snapper will attempt to
+    # create it.
+    #directory:
+
+    # (string) The address of the FTP server to connect to.
+    # Environment variable: SNAPPER_FTP_SERVER
+    #server:
+
+    # (string) The username to use when connecting to the FTP server.
+    # Environment variable: SNAPPER_FTP_USER
+    #username:
+
+    # (string) The password to use when connecting to the FTP server.
+    # Environment variable: SNAPPER_FTP_PASS
+    #password:
+
+    # (string) The port number to use when connecting to the FTP server.
+    # Environment variable: SNAPPER_FTP_PORT
+    #port:
+
+    # (bool) Connect to the FTP via TLS?
+    # Environment variable: SNAPPER_FTP_TLS
+    #tls:
+
+    # (bool) Connect to the FTP in Passive Mode?
+    # Environment variable: SNAPPER_FTP_PASV
+    #passive:
+
+# -- Compression configuration
+# Defines the compression to be used on the SQL dump file.
+
+#compression:
+
+  # (string) Defines which type of compression to use. Valid values are `zip`, `gzip` and `bzip`
+  #type: gzip
+
+  # (int) Defines the compression level to use. Valid values are between 0 and 9.
+  #level: 6
+
+# -- Encryption configuration
+# Defines the encryption to be used on the SQL dump file. Encryption uses OpenSSL, so you must enable the PHP `openssl`
+# extension to use this.
+
+#encryption:
+
+  # (string) Defines the public key to use for encryption. This will allow you to decrypt it using the corresponding
+  # private key.
+  # Environment variable: SNAPPER_ENCRYPT_PUBLIC_KEY
+  #publicKey:
+
+mysqlDump:
+  bin: /usr/bin/mysqldump
+  #addLocks: true
+  #completeInsert: false
+  #extendedInsert: true
+  #disableKeys: true
+  #dropDatabase: true
+  #dropTable: true
+  #dropTrigger: true
+  #insertIgnore: false
+  #lockTables: true
+  #useReplace: false
+
+mysqlCli:
+  bin: /usr/bin/mysql
