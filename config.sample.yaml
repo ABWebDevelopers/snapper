@@ -44,7 +44,7 @@ connection:
 
   # (int) The port number to use when connecting to the server
   # Environment variable: SNAPPER_CONN_PORT
-  port: 3306
+  #port: 3306
 
 
 # -- Snapshot strategory

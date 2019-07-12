@@ -4,6 +4,7 @@ use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Dflydev\DotAccessData\Data;
 use ABWebDevelopers\Snapper\Config\Exception\ConfigReadException;
+use ABWebDevelopers\Snapper\Config\Exception\MissingConfigException;
 
 /**
  * Configuration object.
@@ -49,22 +50,18 @@ class Config extends Data
         'connection.password' => 'string',
         'connection.port' => 'integer',
         'strategy' => 'array',
-        'strategy.hourly' => 'array',
         'strategy.hourly.snapshotMinute' => 'integer',
         'strategy.hourly.backupsToKeep' => 'integer',
         'strategy.hourly.folderName' => 'string',
-        'strategy.daily' => 'array',
         'strategy.daily.snapshotHour' => 'integer',
         'strategy.daily.snapshotMinute' => 'integer',
         'strategy.daily.backupsToKeep' => 'integer',
         'strategy.daily.folderName' => 'string',
-        'strategy.weekly' => 'array',
         'strategy.weekly.snapshotDay' => 'integer',
         'strategy.weekly.snapshotHour' => 'integer',
         'strategy.weekly.snapshotMinute' => 'integer',
         'strategy.weekly.backupsToKeep' => 'integer',
         'strategy.weekly.folderName' => 'string',
-        'strategy.monthly' => 'array',
         'strategy.monthly.snapshotDay' => 'integer',
         'strategy.monthly.snapshotHour' => 'integer',
         'strategy.monthly.snapshotMinute' => 'integer',
@@ -136,6 +133,7 @@ class Config extends Data
      * @var array
      */
     protected $defaults = [
+        'connection.port' => 3306,
         'strategy.hourly.snapshotMinute' => 0,
         'strategy.hourly.backupsToKeep' => 24,
         'strategy.hourly.folderName' => 'hourly',
@@ -192,6 +190,10 @@ class Config extends Data
      */
     public function read(string $configFile): void
     {
+        if (!file_exists($configFile)) {
+            throw new MissingConfigException();
+        }
+
         try {
             $config = Yaml::parseFile($configFile, Yaml::PARSE_EXCEPTION_ON_INVALID_TYPE);
         } catch (ParseException $e) {
@@ -293,8 +295,8 @@ class Config extends Data
 
                 if ($this->has($configKey) && $configValueType !== $expectedType) {
                     throw new ConfigReadException(
-                        'Invalid configuration value for "' . $configKey . '" - expected (' . $expectedType . ') but
-                        got (' . $configValueType . ')',
+                        'Invalid configuration value for "' . $configKey . '" - expected (' . $expectedType . ') but ' .
+                        'got (' . $configValueType . ')',
                         1003
                     );
                 }
