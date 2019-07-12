@@ -1,0 +1,15 @@
+connection:
+  server: localhost
+  username: noUser
+  password: somePassword
+strategy:
+  hourly:
+  daily:
+  weekly:
+storage:
+  local:
+    directory: /tmp
+mysqlDump:
+  bin: /usr/bin/mysqldump
+mysqlCli:
+  bin: /usr/bin/mysql

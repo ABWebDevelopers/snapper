@@ -10,14 +10,19 @@
     "license": "MIT",
     "type": "project",
     "require": {
+        "php": ">=7.2",
         "symfony/yaml": "^4.3",
         "league/climate": "^3.5",
         "aws/aws-sdk-php": "^3.104",
         "dflydev/dot-access-data": "^2.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^8.2"
+    },
     "autoload": {
         "psr-4": {
-            "ABWebDevelopers\\Snapper\\": "lib"
+            "ABWebDevelopers\\Snapper\\": "lib",
+            "ABWebDevelopers\\Snapper\\Tests\\": "tests"
         }
-    }
+    },
 }

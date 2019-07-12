@@ -1,0 +1,17 @@
+<phpunit
+    bootstrap="vendor/autoload.php"
+    colors="true"
+    beStrictAboutOutputDuringTests="true"
+>
+    <testsuites>
+        <testsuite name="Snapper Test Suite">
+            <directory>tests/cases</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">lib</directory>
+        </whitelist>
+    </filter>
+</phpunit>

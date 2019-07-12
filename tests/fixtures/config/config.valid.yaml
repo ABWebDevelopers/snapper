@@ -1,0 +1,22 @@
+databases:
+  includeAll: true
+  exclude:
+    - information_schema
+    - logs
+    - mysql
+    - performance_schema
+connection:
+  server: localhost
+  username: noUser
+  password: somePassword
+strategy:
+  hourly:
+  daily:
+  weekly:
+storage:
+  local:
+    directory: /tmp
+mysqlDump:
+  bin: /usr/bin/mysqldump
+mysqlCli:
+  bin: /usr/bin/mysql
