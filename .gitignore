@@ -5,5 +5,7 @@ config.yaml
 vendor/*
 composer.lock
 
-# Editor files
+# Editor and development files
 .vscode/*
+build/*
+.phpunit.result.cache
