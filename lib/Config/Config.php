@@ -132,7 +132,7 @@ class Config extends Data
      *
      * @var array
      */
-    protected $defaults = [
+    public $defaults = [
         'connection.port' => 3306,
         'strategy.hourly.snapshotMinute' => 0,
         'strategy.hourly.backupsToKeep' => 24,

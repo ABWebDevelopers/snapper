@@ -72,7 +72,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $config->export());
     }
 
-    public function testMissingConfig()
+    public function testMissingConfig(): void
     {
         $this->expectException(MissingConfigException::class);
         $this->expectExceptionCode(1000);
@@ -80,7 +80,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $config = new Config(dirname(dirname(__DIR__)) . '/fixtures/config/config.missing.yaml');
     }
 
-    public function testInvalidYamlConfig()
+    public function testInvalidYamlConfig(): void
     {
         $this->expectException(ConfigReadException::class);
         $this->expectExceptionCode(1001);
@@ -88,7 +88,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $config = new Config(dirname(dirname(__DIR__)) . '/fixtures/config/config.html');
     }
 
-    public function testMissingRequiredParameters()
+    public function testMissingRequiredParameters(): void
     {
         $this->expectException(ConfigReadException::class);
         $this->expectExceptionCode(1002);
@@ -96,7 +96,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $config = new Config(dirname(dirname(__DIR__)) . '/fixtures/config/config.missingParams.yaml');
     }
 
-    public function testInvalidParameters()
+    public function testInvalidParameters(): void
     {
         $this->expectException(ConfigReadException::class);
         $this->expectExceptionCode(1003);
