@@ -1,0 +1,32 @@
+language: php
+php:
+  - 7.2
+  - 7.3
+  - 7.4snapshot
+  - nightly
+
+matrix:
+  allow_failures:
+  - php: 7.4snapshot
+  - php: nightly
+
+sudo: false
+
+install:
+  - composer install
+
+stages:
+  - test
+  - code coverage
+
+script:
+  - vendor/bin/phpunit
+
+jobs:
+  include:
+    - stage: code coverage
+      php: 7.2
+      script:
+        - vendor/bin/phpunit --dump-xdebug-filter build/xdebug-filter.php
+        - vendor/bin/phpunit --prepend build/xdebug-filter.php --coverage-clover=coverage.xml
+        - bash <(curl -s https://codecov.io/bash)
