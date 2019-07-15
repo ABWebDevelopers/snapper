@@ -1,4 +1,5 @@
 language: php
+
 php:
   - 7.2
   - 7.3
@@ -7,13 +8,13 @@ php:
 
 matrix:
   allow_failures:
-  - php: 7.4snapshot
-  - php: nightly
+    - php: 7.4snapshot
+    - php: nightly
 
 sudo: false
 
 install:
-  - composer install
+  - composer install --no-interaction --no-progress --no-suggest
 
 stages:
   - test
